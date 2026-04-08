@@ -1,15 +1,25 @@
 {
-"expo": {
-"name": "frame",
-"slug": "frame-mvp",
-"scheme": "frame",
-"orientation": "portrait",
-"userInterfaceStyle": "dark",
-"plugins": [
-"expo-router"
-],
-"experiments": {
-"typedRoutes": true
-}
-}
+  "expo": {
+    "name": "frame",
+    "slug": "frame-mvp",
+    "scheme": "frame",
+    "sdkVersion": "54.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ce048444-d6cf-46ff-987f-f605f756aa5b"
+      }
+    },
+    "android": {
+      "package": "com.phillipjfly.framemvp"
+    }
+  }
 }

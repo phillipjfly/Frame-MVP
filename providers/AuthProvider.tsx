@@ -1,4 +1,4 @@
-import type { Session } from '@supabase/supabase-js';
+import type { Session, AuthChangeEvent, AuthError } from '@supabase/supabase-js';
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 import { supabase } from '@/lib/supabase';
@@ -20,13 +20,14 @@ const [loading, setLoading] = useState(true);
 useEffect(() => {
 let mounted = true;
 
-supabase.auth.getSession().then(({ data }) => {
+supabase.auth.getSession().then(({ data, error }) => {
+  if (error) console.error('Error getting session:', error);
   if (!mounted) return;
   setSession(data.session);
   setLoading(false);
 });
 
-const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+const { data: listener } = supabase.auth.onAuthStateChange((event: AuthChangeEvent, nextSession: Session | null) => {
   if (!mounted) return;
   setSession(nextSession);
   setLoading(false);
