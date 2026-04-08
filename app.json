@@ -1,0 +1,15 @@
+{
+"expo": {
+"name": "frame",
+"slug": "frame-mvp",
+"scheme": "frame",
+"orientation": "portrait",
+"userInterfaceStyle": "dark",
+"plugins": [
+"expo-router"
+],
+"experiments": {
+"typedRoutes": true
+}
+}
+}
