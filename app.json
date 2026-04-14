@@ -7,10 +7,16 @@
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow frame to access your photos."
+        }
+      ]
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": false
     },
     "extra": {
       "router": {},
@@ -20,6 +26,9 @@
     },
     "android": {
       "package": "com.phillipjfly.framemvp"
+    },
+    "ios": {
+      "bundleIdentifier": "com.phillipjfly.framemvp"
     }
   }
 }

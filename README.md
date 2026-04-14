@@ -97,3 +97,8 @@ Run SQL in Supabase SQL editor: supabase/sql/profiles.sql
 Add .env values.
 
 Run app with Expo.
+
+iOS setup
+- `app.json` includes `expo.ios.bundleIdentifier`.
+- Run locally on macOS with Xcode installed using `expo run:ios`.
+- For EAS or native builds, ensure your iOS credentials and App Store settings are configured.
