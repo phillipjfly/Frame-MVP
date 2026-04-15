@@ -10,7 +10,7 @@ throw new Error('Missing Supabase env vars: EXPO_PUBLIC_SUPABASE_URL and EXPO_PU
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
 auth: {
-storage: AsyncStorage,
+storage: AsyncStorage, // helps keep logged in
 autoRefreshToken: true,
 persistSession: true,
 detectSessionInUrl: false
