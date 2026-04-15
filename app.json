@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "frame",
+    "slug": "frame-mvp",
+    "scheme": "frame",
+    "sdkVersion": "54.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow frame to access your photos."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": false
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ce048444-d6cf-46ff-987f-f605f756aa5b"
+      }
+    },
+    "android": {
+      "package": "com.phillipjfly.framemvp"
+    },
+    "ios": {
+      "bundleIdentifier": "com.phillipjfly.framemvp"
+    }
+  }
+}
