@@ -23,7 +23,6 @@ export default function ProfileScreen() {
     const { data, error } = await supabase
       .from('posts')
       .select('id, image_url, caption, created_at')
-      .eq('user_id', session.user.id)
       .order('created_at', { ascending: false });
 
     if (!error && data) {

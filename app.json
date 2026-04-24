@@ -6,6 +6,11 @@
     "sdkVersion": "54.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
     "plugins": [
       "expo-router",
       [
@@ -25,10 +30,16 @@
       }
     },
     "android": {
-      "package": "com.phillipjfly.framemvp"
+      "package": "com.phillipjfly.framemvp",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "ios": {
-      "bundleIdentifier": "com.phillipjfly.framemvp"
+      "bundleIdentifier": "com.phillip.frame",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     }
   }
 }

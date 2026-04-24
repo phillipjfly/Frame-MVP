@@ -133,3 +133,49 @@ create policy "comments_delete_own"
 on public.comments
 for delete
 using (auth.uid() = user_id);
+
+-- public storage bucket for post images
+insert into storage.buckets (id, name, public)
+values ('posts', 'posts', true)
+on conflict (id) do nothing;
+
+-- read post images: public
+create policy "posts_storage_select_public"
+on storage.objects
+for select
+using (bucket_id = 'posts');
+
+-- insert into own folder only
+create policy "posts_storage_insert_own"
+on storage.objects
+for insert
+with check (
+	bucket_id = 'posts'
+	and auth.role() = 'authenticated'
+	and (storage.foldername(name))[1] = auth.uid()::text
+);
+
+-- update only own uploads
+create policy "posts_storage_update_own"
+on storage.objects
+for update
+using (
+	bucket_id = 'posts'
+	and auth.role() = 'authenticated'
+	and (storage.foldername(name))[1] = auth.uid()::text
+)
+with check (
+	bucket_id = 'posts'
+	and auth.role() = 'authenticated'
+	and (storage.foldername(name))[1] = auth.uid()::text
+);
+
+-- delete only own uploads
+create policy "posts_storage_delete_own"
+on storage.objects
+for delete
+using (
+	bucket_id = 'posts'
+	and auth.role() = 'authenticated'
+	and (storage.foldername(name))[1] = auth.uid()::text
+);

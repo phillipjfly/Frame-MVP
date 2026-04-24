@@ -46,7 +46,9 @@ app/(auth)/signup.tsx
 
 Email/password signup screen.
 
-Creates a row in profiles after signup.
+Stores the requested username in auth metadata.
+
+Profiles are created automatically on the first authenticated session.
 
 Includes loading + error/success states.
 
@@ -70,17 +72,11 @@ Profile placeholder screen.
 
 Shows current user email and log-out action.
 
-supabase/sql/profiles.sql
+supabase/migrations/20260407_frame_mvp.sql
 
-SQL file kept separate from app code.
+Schema migration for the MVP.
 
-Creates public.profiles + RLS policies:
-
-anyone can read profiles
-
-users can insert their own profile
-
-users can update only their own profile
+Creates tables, RLS policies, and the public posts storage bucket used by uploads.
 
 .env.example
 
@@ -92,13 +88,8 @@ Create .env at repo root:
 EXPO_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT_ID.supabase.co
 EXPO_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
 Next step
-Run SQL in Supabase SQL editor: supabase/sql/profiles.sql
+Run SQL in Supabase SQL editor: supabase/migrations/20260407_frame_mvp.sql
 
 Add .env values.
 
 Run app with Expo.
-
-iOS setup
-- `app.json` includes `expo.ios.bundleIdentifier`.
-- Run locally on macOS with Xcode installed using `expo run:ios`.
-- For EAS or native builds, ensure your iOS credentials and App Store settings are configured.

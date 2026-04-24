@@ -2,12 +2,9 @@ import { Link, Redirect } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { supabase } from '@/lib/supabase';
+import { ensureProfileForUser, usernameFromEmail } from '@/lib/profiles';
 import { useAuth } from '@/providers/AuthProvider';
-
-function usernameFromEmail(email: string) {
-return email.split('@')[0].toLowerCase().replace(/[^a-z0-9_]/g, '').slice(0, 20);
-}
+import { supabase } from '@/lib/supabase';
 
 export default function SignUpScreen() {
 const { session, loading: authLoading } = useAuth();
@@ -35,7 +32,12 @@ const finalUsername = (username.trim() || usernameFromEmail(email.trim())).toLow
 
 const { data, error: signUpError } = await supabase.auth.signUp({
   email: email.trim(),
-  password
+  password,
+  options: {
+    data: {
+      username: finalUsername,
+    },
+  },
 });
 
 if (signUpError) {
@@ -44,16 +46,8 @@ if (signUpError) {
   return;
 }
 
-const userId = data.user?.id;
-
-if (userId) {
-  const { error: profileError } = await supabase.from('profiles').upsert({
-    id: userId,
-    username: finalUsername,
-    display_name: null,
-    bio: null,
-    avatar_url: null
-  });
+if (data.session?.user) {
+  const { error: profileError } = await ensureProfileForUser(data.session.user);
 
   if (profileError) {
     setError(profileError.message);
@@ -62,7 +56,7 @@ if (userId) {
   }
 }
 
-setSuccess('account created. if email confirmation is on, check your inbox.');
+setSuccess('account created. if email confirmation is on, check your inbox before logging in.');
 setLoading(false);
 };
 
